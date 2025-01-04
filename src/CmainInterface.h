@@ -5,17 +5,21 @@
 
 #ifndef _CMAININTERFACE_H
 #define _CMAININTERFACE_H
+#include <string>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+#include <cctype>
+using namespace std;
 
 class CmainInterface {
 public: 
-    CdataBackup myDataBackup;
-    CencryptionManager myEncryptionManager;
-    CcompressionManager myCompressionManager;
-    CdataRestoration myDataRestoration;
     
-void startGUI();
+void interactGUI();
+
+vector<string> splitFilters(const char* filters);
     
-void main();
 };
+
 
 #endif //_CMAININTERFACE_H

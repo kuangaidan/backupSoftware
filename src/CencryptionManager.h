@@ -6,23 +6,33 @@
 #ifndef _CENCRYPTIONMANAGER_H
 #define _CENCRYPTIONMANAGER_H
 
+#include "commonStructures.h"
+#include <openssl/evp.h>
+#include <openssl/aes.h>
+#include <openssl/rand.h>
+#include <openssl/sha.h>
+#include <cstring>
+
+
 class CencryptionManager {
 public: 
-    void Attribute1;
+
+
+unsigned int createChecksumForEncryptionTests(char *data, int size);
     
 /**
  * @param int encryptionMethod
  * @param string encryptionKey
  * @param char* filePackage
  */
-char* encrypt(void int encryptionMethod, void string encryptionKey, void char* filePackage);
+dataPackage encrypt(int encryptionMethod, string encryptionKey, dataPackage filePackage);
     
 /**
  * @param int encryptionMethod
  * @param string encryptionKey
  * @param char* filePackage
  */
-char* dencrypt(void int encryptionMethod, void string encryptionKey, void char* filePackage);
+dataPackage decrypt(int encryptionMethod, string encryptionKey, dataPackage filePackage);
 };
 
 #endif //_CENCRYPTIONMANAGER_H
