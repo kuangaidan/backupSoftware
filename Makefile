@@ -30,7 +30,7 @@ test:
 	rm $(testProgramName)
 	
 run:
-	ln -s $(elfPath) $(programName)
+	-ln -s $(elfPath) $(programName)
 	./$(programName)
 	
 clean:
