@@ -14,6 +14,7 @@
 #include <cstring>
 #include <fstream>
 #include <utime.h>
+#include <cstdint>
 
 class CdataPackager {
 public: 

@@ -10,6 +10,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <cstdint>
 using namespace std;
 
 class CmainInterface {

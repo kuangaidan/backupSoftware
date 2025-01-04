@@ -12,6 +12,7 @@
 #include <openssl/rand.h>
 #include <openssl/sha.h>
 #include <cstring>
+#include <cstdint>
 
 
 class CencryptionManager {

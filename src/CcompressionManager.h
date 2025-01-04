@@ -4,6 +4,7 @@
 #include <vector>
 #include <tuple>
 #include <iomanip>
+#include <cstdint>
 #include "CdataPackager.h"
 
 #ifndef _CCOMPRESSIONMANAGER_H
