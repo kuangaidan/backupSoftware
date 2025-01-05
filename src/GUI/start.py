@@ -58,7 +58,7 @@ def makePackage():
     print(f"PY: done with backup: {result}\n")
     #result status:
     if (result == 0):   #no errors
-        writeStatus("Package Created Sucessfully", "#0fb000")
+        writeStatus("Package Created Successfully", "#0fb000")
     elif(result == 1):  #enumerationError
         writeStatus("Error Enumerating Files - Please Check Path", "#FF0000")
     elif(result == 2):  #filterError
@@ -96,7 +96,7 @@ def restorePackage():
     print(f"PY: done with backup: {result}\n")
     #result status:
     if (result == 0):   #no errors
-        writeStatus("Package Restored Sucessfully", "#0fb000")
+        writeStatus("Package Restored Successfully", "#0fb000")
     elif(result == 1):  #enumerationError
         writeStatus("Error Unpackaging File", "#FF0000")
     elif(result == 2):  #filterError

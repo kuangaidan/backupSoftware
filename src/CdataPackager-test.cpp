@@ -35,7 +35,7 @@ bool testFilePackager(){
 	if (listOfFiles.empty())
 		return false;
 	else
-		cout << "\033[32mFiles Enumerated Sucessfully\033[0m" << endl << endl;
+		cout << "\033[32mFiles Enumerated Successfully\033[0m" << endl << endl;
 	
 	//package file:
 	cout << endl << "Starting File Packaging Test" << endl;
@@ -51,7 +51,7 @@ bool testFilePackager(){
 		cout << "Error Writing Package" << endl;
 		return false;
 	}
-		cout << "\033[32mFiles Packaged Sucessfully\033[0m" << endl << endl;
+		cout << "\033[32mFiles Packaged Successfully\033[0m" << endl << endl;
 	
 	//compression test:
 	
@@ -87,7 +87,7 @@ bool testFilePackager(){
 	if (!dataPackager->unpackageFile("./testDestFolder", recovered)){
 		return false;
 	}
-		cout << "\033[32mFiles Unpackaged Sucessfully\033[0m" << endl << endl;
+		cout << "\033[32mFiles Unpackaged Successfully\033[0m" << endl << endl;
 	
 	return true;
 }

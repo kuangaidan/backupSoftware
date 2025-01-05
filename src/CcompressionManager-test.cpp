@@ -14,7 +14,7 @@ bool CcompressionTest::testCompression(int compressionMethod, dataPackage packag
 			cout << "Error Compressing Package" << endl;
 		}
 		else{
-			cout << "Sucessfully Compressed Package" << endl;
+			cout << "Successfully Compressed Package" << endl;
 		}
 		//write compressed package to disk:
 		cout << "Writing Compressed Package to disk: " << fileNameCompressed << endl;
@@ -39,7 +39,7 @@ bool CcompressionTest::testCompression(int compressionMethod, dataPackage packag
 		cout << "Error Decompressing Package" << endl;
 	}
 	else{
-		cout << "Sucessfully Decompressed Package" << endl;
+		cout << "Successfully Decompressed Package" << endl;
 	}
 	
 	//run checksum to compare:

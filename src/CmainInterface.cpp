@@ -53,7 +53,7 @@ extern "C" {
 		return noError;
 	}
 	
-	bool restore(const char* srcFile, const char* destLocation, bool compressed, bool encrypted, const char* key){
+	int restore(const char* srcFile, const char* destLocation, bool compressed, bool encrypted, const char* key){
 		CdataPackager *dataPackager = new CdataPackager();
 		CcompressionManager *compressionManager = new CcompressionManager();
 		CencryptionManager *encryptionManager = new CencryptionManager();

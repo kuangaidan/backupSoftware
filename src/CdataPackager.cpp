@@ -173,9 +173,9 @@ dataPackage CdataPackager::packageFiles(vector<string> fileList, vector<string> 
 	}
 	vector<fileHeader> headerBuffer;
 	vector<char*> contentBuffer;
-	vector<int> contentIndex;
-	vector<int> contentSize;
-	int totalSize = 0;
+	vector<long> contentIndex;
+	vector<unsigned int> contentSize;
+	long totalSize = 0;
 	//set root string:
 	string fileRoot = fileList[0];
 	int indexOfSlash = fileList[0].rfind("/");
@@ -184,7 +184,7 @@ dataPackage CdataPackager::packageFiles(vector<string> fileList, vector<string> 
 	}
 	cout << "Root file to save from: " << fileRoot << endl;
 	//iterate through list of files
-	for (int i = 0; i < fileList.size(); i++){		
+	for (long i = 0; i < fileList.size(); i++){		
 		struct stat st;
 		stat(fileList[i].c_str(), &st);
 		//if file passes filters, add header to end of header buffer, add content to end of content buffer
@@ -201,7 +201,7 @@ dataPackage CdataPackager::packageFiles(vector<string> fileList, vector<string> 
 		cout << "local file name: " << pathNameMinusRoot << endl;
 		//get content of file:
 		char* fileContentBuffer;
-		int fileSize;
+		long fileSize;
 		if (!S_ISDIR(st.st_mode)){	//byte content if not a directory
 			fileContentBuffer = readEntireFileIntoBuffer(fileList[i].c_str(), st);
 			fileSize = st.st_size;
@@ -218,7 +218,7 @@ dataPackage CdataPackager::packageFiles(vector<string> fileList, vector<string> 
 		headerBuffer.push_back(newHeader);
 		//report data:
 		cout << "Size of " << fileList[i].c_str() << ": \t" << fileSize << endl;
-		int lastSize = totalSize;
+		long lastSize = totalSize;
 		contentIndex.push_back(lastSize);	//end of last length
 		totalSize += fileSize;
 		totalSize = (BLOCKSIZE - (totalSize % BLOCKSIZE)) + totalSize;	//offset to BLOCKSIZE (512)
@@ -230,16 +230,16 @@ dataPackage CdataPackager::packageFiles(vector<string> fileList, vector<string> 
 	cout << "Total Number of Content Files: " << totalSize << endl;
 	cout << "Total SIZE of Package File: " << (headerBuffer.size() * BLOCKSIZE) + totalSize << endl;
 	
-	
-	char* contentFile = (char*)calloc(1, (headerBuffer.size() * BLOCKSIZE) + totalSize + sizeOfChecksum);	//header Size + content size
+	long fileContentSize = ((long)(headerBuffer.size() * BLOCKSIZE)) + totalSize + sizeOfChecksum;
+	char* contentFile = (char*)calloc(1, fileContentSize);	//header Size + content size
 	//merge data into one file;
 	for (int i = 0; i < headerBuffer.size(); i++){
 		//copy headers to content file
 		memcpy(contentFile + (i * BLOCKSIZE), &headerBuffer[i], BLOCKSIZE);
 	}
 	
-	int headerLength = headerBuffer.size() * BLOCKSIZE;
-	for (int i = 0; i < contentBuffer.size(); i++){
+	long headerLength = headerBuffer.size() * BLOCKSIZE;
+	for (long i = 0; i < contentBuffer.size(); i++){
 		//copy file contents to content file
 		memcpy(contentFile + headerLength + contentIndex[i], 
 			contentBuffer[i], contentSize[i]);
@@ -310,7 +310,7 @@ bool CdataPackager::unpackageFile(string destFolder, dataPackage package) {
 	//check file checksum in last four bytes:
 	unsigned int packageChecksum = createChecksum(package.dataPointer, package.size - sizeOfChecksum);
 		//grab old checksum
-		unsigned int newChecksum = 
+		long newChecksum = 
 		(static_cast<unsigned int>(static_cast<uint8_t>(package.dataPointer[package.size - sizeOfChecksum + 3])) << 24) |
         (static_cast<unsigned int>(static_cast<uint8_t>(package.dataPointer[package.size - sizeOfChecksum + 2])) << 16) |
         (static_cast<unsigned int>(static_cast<uint8_t>(package.dataPointer[package.size - sizeOfChecksum + 1])) << 8)  |
@@ -328,9 +328,9 @@ bool CdataPackager::unpackageFile(string destFolder, dataPackage package) {
 	//first read each header file (512 bytes)
 	vector <fileHeader*> headers;
 	//headers are recognized by fileHeaderStringTag in last 12 bytes
-	int headerIndex = 0;
+	long headerIndex = 0;
 	bool readAllHeaders = false;
-	int numberOfFilesToRestore = 0;
+	long numberOfFilesToRestore = 0;
 	while (!readAllHeaders){
 		char* headerTag = (char*)malloc(12);
 		memcpy(headerTag, package.dataPointer + headerIndex + BLOCKSIZE-12, 12);
@@ -348,12 +348,12 @@ bool CdataPackager::unpackageFile(string destFolder, dataPackage package) {
 	cout << "Total number of files found from package: " << numberOfFilesToRestore << endl;
 	//read each file's contents (ensuring alignment with block size)
 	cout << "header total size " << headerIndex << endl;
-	int contentIndex = 0;
-	int fileIndex = 0;
-	int fileRestoredCount = 0;
+	long contentIndex = 0;
+	long fileIndex = 0;
+	long fileRestoredCount = 0;
 	while (fileIndex < numberOfFilesToRestore){
 		//cout << headers[fileIndex]->size << endl;
-		int fileSize = stoi(headers[fileIndex]->size, 0, 8);
+		long fileSize = stoi(headers[fileIndex]->size, 0, 8);
 		//cout << fileSize << endl;
 		char* fileContent = (char*)malloc(fileSize);
 		memcpy(fileContent, package.dataPointer + headerIndex + contentIndex, fileSize);

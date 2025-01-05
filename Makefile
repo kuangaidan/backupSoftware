@@ -17,7 +17,7 @@ build:
 	python3 src/GUI/compile.py build
 	#mv $(ABIName) build/exe.linux-x86_64-3.10/$(ABIName)
 	#cp src/GUI/icon.png build/exe.linux-x86_64-3.10/icon.png
-	@echo "${G}Build Sucessful"
+	@echo "${G}Build Successful"
 	
 test:
 	-rm -r $(testFolderDestName)
@@ -39,6 +39,6 @@ clean:
 	-rm $(ABIName)
 	-rm $(programName)
 	-rm *.pck
-	@echo "${G}Clean Sucessful"
+	@echo "${G}Clean Successful"
 	
 

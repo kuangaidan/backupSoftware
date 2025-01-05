@@ -111,7 +111,7 @@ dataPackage CencryptionManager::encrypt(int encryptionMethod, string encryptionK
     // Clean up
     EVP_CIPHER_CTX_free(ctx);
 	
-	cout << "Sucessfully Encrypted Package" << endl;
+	cout << "Successfully Encrypted Package" << endl;
 	
 	encrypted.dataPointer = (char*)ciphertext;
 	encrypted.size = ciphertextLength;
@@ -185,7 +185,7 @@ dataPackage CencryptionManager::decrypt(int encryptionMethod, string encryptionK
 	
 	decrypted.dataPointer = (char*)decryptedtext;
 	decrypted.size = decryptedtextLen;
-	cout << "Sucessfully Decrypted Package" << endl;
+	cout << "Successfully Decrypted Package" << endl;
 	
 	return decrypted;
 }

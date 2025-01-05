@@ -18,7 +18,7 @@ struct filterStruct{
 
 struct dataPackage {
 	char* dataPointer = nullptr;
-	int size = -1;
+	long size = -1;
 };
 
 
